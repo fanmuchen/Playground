@@ -1,3 +1,2 @@
 .DS_Store
-/download*
-/node_modules
+node_modules/
