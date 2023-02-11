@@ -2,7 +2,7 @@ import itertools
 import csv
 
 # Generate all possible combinations of three letters
-combinations = itertools.product("cfm", repeat=3)
+combinations = itertools.product("abcdefghijklmnopqrstuvwxyz", repeat=3)
 
 # Create list of all .ai domains with three letters in second level
 domains = []
