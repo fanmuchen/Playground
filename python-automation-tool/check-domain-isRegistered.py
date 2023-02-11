@@ -1,3 +1,5 @@
+# 由于Whois API不开放，不可用
+
 import whois
 
 # List of .ai domains to check
