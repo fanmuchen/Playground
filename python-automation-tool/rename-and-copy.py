@@ -59,7 +59,6 @@ def main():
     if not dst_path:
         dst_path = input("Enter the destination path: ")
 
-
     replaced = replace_filename(path, old_string, new_string)
     print(f"Renaming process is complete. Renamed: {replaced}")
 
