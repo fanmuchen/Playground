@@ -8,8 +8,12 @@ output_file = None
 
 
 def make_clip(input_file, start_time, end_time, output_file):
+    audio_codec = 'aac'
     clip = mp.VideoFileClip(input_file).subclip(start_time, end_time)
-    clip.write_videofile(output_file)
+    # audio_codec = clip.audio.fps
+    # clip.write_videofile(output_file, audio_codec=audio_codec)
+    # clip.write_videofile(output_file, audio_codec='aac')
+    clip.write_videofile(output_file, audio_codec=audio_codec)
 
 
 def parse_time(time_str):
