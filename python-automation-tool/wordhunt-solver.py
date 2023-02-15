@@ -9,7 +9,7 @@ letters = [
 # Ask the user to enter the letters as a string
 # letters_str = input("Enter the 16 letters as a single string: ").upper()
 
-# # Convert the string to a 4x4 grid of letters
+# Convert the string to a 4x4 grid of letters
 # letters = [[letters_str[i*4 + j] for j in range(4)] for i in range(4)]
 
 # Read the English dictionary file into a set
