@@ -30,21 +30,23 @@ words = dictionary
 # Define a function to check if a word can be formed in the grid
 
 
-def is_word_possible(word, grid):
+def is_word_possible(word, grid, paths):
     # Check all starting positions for the first letter of the word
     for i in range(len(grid)):
         for j in range(len(grid[0])):
             if word[0] == grid[i][j]:
                 # Check all possible paths from the starting position
-                if is_word_possible_helper(word[1:], grid, [(i, j)]):
+                if is_word_possible_helper(word[1:], grid, [(i, j)], paths):
                     return True
     return False
 
 # Define a helper function to check if a word can be formed in the grid from a given position
 
 
-def is_word_possible_helper(word, grid, path):
+def is_word_possible_helper(word, grid, path, paths):
     if len(word) == 0:
+        if len(path) > 5:
+            paths.append(path)
         return True
     # Get the current position from the path
     i, j = path[-1]
@@ -55,21 +57,50 @@ def is_word_possible_helper(word, grid, path):
             if (di, dj) != (0, 0) and 0 <= i+di < len(grid) and 0 <= j+dj < len(grid[0]):
                 if word[0] == grid[i+di][j+dj] and (i+di, j+dj) not in path:
                     # Recursively check the next letter of the word
-                    if is_word_possible_helper(word[1:], grid, path + [(i+di, j+dj)]):
+                    if is_word_possible_helper(word[1:], grid, path + [(i+di, j+dj)], paths):
                         return True
     return False
 
 
 # Define a list to store the found words
 found_words = []
+long_paths = []
 
 # Find all possible words
 for word in words:
-    if is_word_possible(word, letters):
+    if is_word_possible(word, letters, long_paths):
         found_words.append(word)
 
 # Sort the list of found words by length (from longest to shortest), then alphabetically
 found_words.sort(key=lambda x: (-len(x), x))
+long_paths.sort(key=len)
 
 # Print the list of found words
-print(found_words)
+# print(found_words)
+# print(long_paths)
+
+
+def print_path_on_grid(grid, path):
+    # Create a copy of the grid to modify
+    grid_copy = [list(row) for row in grid]
+    # Mark the path on the copy of the grid
+    for i, j in path:
+        # Calculate the step number based on the index of the position in the path
+        step_num = str(path.index((i, j)) + 1)
+        # grid_copy[i][j] = step_num
+        grid_copy[i][j] = f'\033[93m{step_num}\033[0m'
+    # Print the marked grid
+    for row in grid_copy:
+        print(' '.join(row))
+
+
+def print_paths_on_grid(grid, paths):
+    # Iterate over each path and print it on a separate graph
+    for i, path in enumerate(paths):
+        word = ''.join([grid[i][j] for i, j in path])
+        print(f'{word}:')
+        print_path_on_grid(grid, path)
+        print()
+
+
+print_paths_on_grid(letters, long_paths)
