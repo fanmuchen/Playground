@@ -1,13 +1,14 @@
 # 这个程序采用了一种方法，用字典里的单词一个个去试，看是否能在网格里跑通。这样似乎并不是最高效的。
-
+# Note that this implementation assumes that your terminal supports ANSI escape sequences for text coloring. If your terminal does not support text coloring, the colored step numbers may not be visible or may appear as regular text.
 
 # Define the 4x4 grid of letters
-letters = [
-    ['S', 'S', 'E', 'R'],
-    ['U', 'H', 'O', 'T'],
-    ['I', 'E', 'N', 'L'],
-    ['R', 'B', 'T', 'H']
-]
+# 测试用
+# letters = [
+#     ['S', 'S', 'E', 'R'],
+#     ['U', 'H', 'O', 'T'],
+#     ['I', 'E', 'N', 'L'],
+#     ['R', 'B', 'T', 'H']
+# ]
 
 if not "letters" in locals() or not letters:
     # Ask the user to enter the letters as a string
@@ -45,7 +46,7 @@ def is_word_possible(word, grid, paths):
 
 def is_word_possible_helper(word, grid, path, paths):
     if len(word) == 0:
-        if len(path) > 5:
+        if len(path) >= 5:
             paths.append(path)
         return True
     # Get the current position from the path
@@ -81,14 +82,26 @@ long_paths.sort(key=len)
 
 
 def print_path_on_grid(grid, path):
+    # Define the rainbow colors as a list of ANSI escape sequences
+    rainbow_colors = [
+        '\033[91m',  # Red
+        '\033[38;5;208m',  # Orange
+        '\033[93m',  # Yellow
+        '\033[92m',  # Green
+        '\033[96m',  # Cyan
+        '\033[94m',  # Blue
+        '\033[95m',  # Magenta
+    ]
     # Create a copy of the grid to modify
     grid_copy = [list(row) for row in grid]
     # Mark the path on the copy of the grid
     for i, j in path:
         # Calculate the step number based on the index of the position in the path
         step_num = str(path.index((i, j)) + 1)
-        # grid_copy[i][j] = step_num
-        grid_copy[i][j] = f'\033[93m{step_num}\033[0m'
+        # Calculate the color index based on the step number
+        color_index = (int(step_num) - 1) % len(rainbow_colors)
+        # Replace the corresponding character in the copy of the grid with the colored step number
+        grid_copy[i][j] = f'{rainbow_colors[color_index]}{step_num}\033[0m'
     # Print the marked grid
     for row in grid_copy:
         print(' '.join(row))
