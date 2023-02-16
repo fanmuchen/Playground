@@ -1,3 +1,6 @@
+# 这个程序采用了一种方法，用字典里的单词一个个去试，看是否能在网格里跑通。这样似乎并不是最高效的。
+
+
 # Define the 4x4 grid of letters
 letters = [
     ['S', 'S', 'E', 'R'],
@@ -6,11 +9,12 @@ letters = [
     ['R', 'B', 'T', 'H']
 ]
 
-# Ask the user to enter the letters as a string
-# letters_str = input("Enter the 16 letters as a single string: ").upper()
+if not "letters" in locals() or not letters:
+    # Ask the user to enter the letters as a string
+    letters_str = input("Enter the 16 letters as a single string: ").upper()
 
-# Convert the string to a 4x4 grid of letters
-# letters = [[letters_str[i*4 + j] for j in range(4)] for i in range(4)]
+    # Convert the string to a 4x4 grid of letters
+    letters = [[letters_str[i*4 + j] for j in range(4)] for i in range(4)]
 
 # Read the English dictionary file into a set
 dictionary = set()
