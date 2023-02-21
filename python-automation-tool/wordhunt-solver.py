@@ -1,6 +1,12 @@
 # 这个程序采用了一种方法，用字典里的单词一个个去试，看是否能在网格里跑通。这样似乎并不是最高效的。
 # Note that this implementation assumes that your terminal supports ANSI escape sequences for text coloring. If your terminal does not support text coloring, the colored step numbers may not be visible or may appear as regular text.
 
+# Read the English dictionary file into a set
+dictionary = set()
+with open('./files/Collins Scrabble Words (2019).txt', 'r') as f:
+    for line in f:
+        dictionary.add(line.strip().upper())
+
 # Define the 4x4 grid of letters
 # 测试用
 # letters = [
@@ -19,7 +25,7 @@ if not "letters" in locals() or not letters:
 
 # Read the English dictionary file into a set
 dictionary = set()
-with open('files/Collins Scrabble Words (2019).txt', 'r') as f:
+with open('./files/Collins Scrabble Words (2019).txt', 'r') as f:
     for line in f:
         dictionary.add(line.strip().upper())
 
@@ -77,8 +83,6 @@ found_words.sort(key=lambda x: (-len(x), x))
 long_paths.sort(key=len)
 
 # Print the list of found words
-# print(found_words)
-# print(long_paths)
 
 
 def print_path_on_grid(grid, path):
@@ -106,14 +110,31 @@ def print_path_on_grid(grid, path):
     for row in grid_copy:
         print(' '.join(row))
 
+# 一起输出
+# def print_paths_on_grid(grid, paths):
+#     # Iterate over each path and print it on a separate graph
+#     for i, path in enumerate(paths):
+#         word = ''.join([grid[i][j] for i, j in path])
+#         print(f'{word}:')
+#         print_path_on_grid(grid, path)
+#         print()
+
+# 分别输出，按Enter输出下一个
+
 
 def print_paths_on_grid(grid, paths):
+    # Sort the paths by length (from longest to shortest)
+    paths.sort(key=len, reverse=True)
+
     # Iterate over each path and print it on a separate graph
     for i, path in enumerate(paths):
         word = ''.join([grid[i][j] for i, j in path])
         print(f'{word}:')
         print_path_on_grid(grid, path)
         print()
+        # Wait for user to press enter before printing the next path
+        if i < len(paths) - 1:
+            input("Press enter to show the next path...")
 
 
 print_paths_on_grid(letters, long_paths)
