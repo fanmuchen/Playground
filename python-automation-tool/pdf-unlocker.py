@@ -1,7 +1,9 @@
 import os
 import sys
 import pikepdf
+from pikepdf import _cpphelpers
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog, QLabel, QPushButton, QVBoxLayout
+
 
 
 class PDFUnlocker(QWidget):
