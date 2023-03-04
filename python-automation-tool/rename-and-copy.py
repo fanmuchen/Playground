@@ -43,7 +43,7 @@ def copy_files(src_path, dst_path):
 
 def main():
     path = "C:\\Users\\FMC\\Videos\\"
-    old_string = "C​a​l​l​ ​o​f​ ​D​u​t​y​®​ ​H​Q​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​ "
+    old_string = "​C​a​l​l​ ​o​f​ ​D​u​t​y​®​ ​H​Q​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​ "
     new_string = "Call of Duty​®​ HQ "
     dst_path = "\\\\192.168.50.50\\FMC File Centre\\Recordings\\Desktop backup\\"
 
